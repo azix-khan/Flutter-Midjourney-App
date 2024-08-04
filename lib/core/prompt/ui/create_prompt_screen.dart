@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:midjourney_flutter_app/feature/prompt/bloc/prompt_bloc.dart';
+import 'package:flutter_midjourney_app/core/prompt/bloc/prompt_bloc.dart';
 
 class CreatePromptScreen extends StatefulWidget {
   const CreatePromptScreen({super.key});
@@ -24,7 +24,7 @@ class _CreatePromptScreenState extends State<CreatePromptScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Generate Images🚀"),
+        title: const Text("Generate Images🚀"),
       ),
       body: BlocConsumer<PromptBloc, PromptState>(
         bloc: promptBloc,
@@ -32,10 +32,10 @@ class _CreatePromptScreenState extends State<CreatePromptScreen> {
         builder: (context, state) {
           switch (state.runtimeType) {
             case PromptGeneratingImageLoadState:
-              return Center(child: CircularProgressIndicator());
+              return const Center(child: CircularProgressIndicator());
 
             case PromptGeneratingImageErrorState:
-              return Center(child: Text("Something went wrong"));
+              return const Center(child: Text("Something went wrong"));
             case PromptGeneratingImageSuccessState:
               final successState = state as PromptGeneratingImageSuccessState;
               return Container(
@@ -87,8 +87,8 @@ class _CreatePromptScreenState extends State<CreatePromptScreen> {
                                         prompt: controller.text));
                                   }
                                 },
-                                icon: Icon(Icons.generating_tokens),
-                                label: Text("Generate")),
+                                icon: const Icon(Icons.generating_tokens),
+                                label: const Text("Generate")),
                           )
                         ],
                       ),
@@ -97,7 +97,7 @@ class _CreatePromptScreenState extends State<CreatePromptScreen> {
                 ),
               );
             default:
-              return SizedBox();
+              return const SizedBox();
           }
         },
       ),

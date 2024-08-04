@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_midjourney_app/core/prompt/ui/create_prompt_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,7 +16,7 @@ class MyApp extends StatelessWidget {
               AppBarTheme(backgroundColor: Colors.grey.shade900, elevation: 0),
           brightness: Brightness.dark,
           scaffoldBackgroundColor: Colors.grey.shade900),
-      home: CreatePromptScreen(),
+      home: const CreatePromptScreen(),
     );
   }
 }

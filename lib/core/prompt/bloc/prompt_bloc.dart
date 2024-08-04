@@ -1,12 +1,12 @@
 import 'dart:async';
-import 'dart:ffi';
 import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_midjourney_app/core/prompt/repos/prompt_repo.dart';
 import 'package:meta/meta.dart';
-import 'package:midjourney_flutter_app/feature/prompt/repos/prompt_repo.dart';
 
 part 'prompt_event.dart';
 part 'prompt_state.dart';
@@ -30,9 +30,12 @@ class PromptBloc extends Bloc<PromptEvent, PromptState> {
 
   FutureOr<void> promptInitialEvent(
       PromptInitialEvent event, Emitter<PromptState> emit) async {
-    Uint8List bytes = await File(
-            '/Users/akshitmadan/Desktop/midjourney_flutter_app/assets/file.png')
-        .readAsBytes();
-    emit(PromptGeneratingImageSuccessState(bytes));
+    try {
+      ByteData data = await rootBundle.load('assets/file.png');
+      Uint8List bytes = data.buffer.asUint8List();
+      emit(PromptGeneratingImageSuccessState(bytes));
+    } catch (e) {
+      emit(PromptGeneratingImageErrorState());
+    }
   }
 }

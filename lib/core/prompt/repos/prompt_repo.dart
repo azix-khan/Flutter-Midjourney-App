@@ -4,13 +4,14 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:dio/dio.dart';
+import 'package:flutter_midjourney_app/core/constants/consts.dart';
 
 class PromptRepo {
   static Future<Uint8List?> generateImage(String prompt) async {
     try {
       String url = 'https://api.vyro.ai/v1/imagine/api/generations';
       Map<String, dynamic> headers = {
-        'Authorization': 'Bearer vk-YOUR_API_KEY'
+        'Authorization': 'Bearer $API_KEY',
       };
 
       Map<String, dynamic> payload = {
@@ -42,4 +43,3 @@ class PromptRepo {
     }
   }
 }
-//Generate a Disney image of a princess with a prince
