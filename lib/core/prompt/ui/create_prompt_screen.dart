@@ -31,12 +31,12 @@ class _CreatePromptScreenState extends State<CreatePromptScreen> {
         listener: (context, state) {},
         builder: (context, state) {
           switch (state.runtimeType) {
-            case PromptGeneratingImageLoadState:
+            case const (PromptGeneratingImageLoadState):
               return const Center(child: CircularProgressIndicator());
 
-            case PromptGeneratingImageErrorState:
+            case const (PromptGeneratingImageErrorState):
               return const Center(child: Text("Something went wrong"));
-            case PromptGeneratingImageSuccessState:
+            case const (PromptGeneratingImageSuccessState):
               final successState = state as PromptGeneratingImageSuccessState;
               return Container(
                 child: Column(
@@ -79,7 +79,7 @@ class _CreatePromptScreenState extends State<CreatePromptScreen> {
                             width: double.maxFinite,
                             child: ElevatedButton.icon(
                                 style: ButtonStyle(
-                                    backgroundColor: MaterialStateProperty.all(
+                                    backgroundColor: WidgetStateProperty.all(
                                         Colors.deepPurple)),
                                 onPressed: () {
                                   if (controller.text.isNotEmpty) {
