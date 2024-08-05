@@ -10,7 +10,7 @@ class CreatePromptScreen extends StatefulWidget {
 }
 
 class _CreatePromptScreenState extends State<CreatePromptScreen> {
-  TextEditingController controller = TextEditingController();
+  TextEditingController promptController = TextEditingController();
 
   final PromptBloc promptBloc = PromptBloc();
 
@@ -21,10 +21,17 @@ class _CreatePromptScreenState extends State<CreatePromptScreen> {
   }
 
   @override
+  void dispose() {
+    promptController.dispose();
+    promptBloc.close();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Generate Images🚀"),
+        title: const Text("Generate Images 🚀"),
       ),
       body: BlocConsumer<PromptBloc, PromptState>(
         bloc: promptBloc,
@@ -38,7 +45,7 @@ class _CreatePromptScreenState extends State<CreatePromptScreen> {
 
             case const (PromptGeneratingImageErrorState):
               return const Center(
-                child: Text("Something went wrong"),
+                child: Text("Something went wrong 😢"),
               );
             case const (PromptGeneratingImageSuccessState):
               final successState = state as PromptGeneratingImageSuccessState;
@@ -72,7 +79,7 @@ class _CreatePromptScreenState extends State<CreatePromptScreen> {
                           ),
                           const SizedBox(height: 20),
                           TextField(
-                            controller: controller,
+                            controller: promptController,
                             cursorColor: Colors.deepPurple,
                             decoration: InputDecoration(
                               focusedBorder: OutlineInputBorder(
@@ -96,12 +103,13 @@ class _CreatePromptScreenState extends State<CreatePromptScreen> {
                                     WidgetStateProperty.all(Colors.deepPurple),
                               ),
                               onPressed: () {
-                                if (controller.text.isNotEmpty) {
+                                if (promptController.text.isNotEmpty) {
                                   promptBloc.add(
                                     PromptEnteredEvent(
-                                      prompt: controller.text,
+                                      prompt: promptController.text,
                                     ),
                                   );
+                                  promptController.clear();
                                 }
                               },
                               icon: const Icon(Icons.generating_tokens),
@@ -110,7 +118,7 @@ class _CreatePromptScreenState extends State<CreatePromptScreen> {
                           )
                         ],
                       ),
-                    )
+                    ),
                   ],
                 ),
               );
