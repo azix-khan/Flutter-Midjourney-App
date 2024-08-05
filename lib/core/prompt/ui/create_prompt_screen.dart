@@ -32,10 +32,14 @@ class _CreatePromptScreenState extends State<CreatePromptScreen> {
         builder: (context, state) {
           switch (state.runtimeType) {
             case const (PromptGeneratingImageLoadState):
-              return const Center(child: CircularProgressIndicator());
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
 
             case const (PromptGeneratingImageErrorState):
-              return const Center(child: Text("Something went wrong"));
+              return const Center(
+                child: Text("Something went wrong"),
+              );
             case const (PromptGeneratingImageSuccessState):
               final successState = state as PromptGeneratingImageSuccessState;
               return Container(
@@ -43,13 +47,16 @@ class _CreatePromptScreenState extends State<CreatePromptScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Expanded(
-                        child: Container(
-                            width: double.maxFinite,
-                            decoration: BoxDecoration(
-                                image: DecorationImage(
-                                    fit: BoxFit.cover,
-                                    image:
-                                        MemoryImage(successState.uint8list))))),
+                      child: Container(
+                        width: double.maxFinite,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            fit: BoxFit.cover,
+                            image: MemoryImage(successState.uint8list),
+                          ),
+                        ),
+                      ),
+                    ),
                     Container(
                       height: 240,
                       padding: const EdgeInsets.all(24),
@@ -59,36 +66,47 @@ class _CreatePromptScreenState extends State<CreatePromptScreen> {
                           const Text(
                             "Enter your prompt",
                             style: TextStyle(
-                                fontSize: 24, fontWeight: FontWeight.bold),
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                           const SizedBox(height: 20),
                           TextField(
                             controller: controller,
                             cursorColor: Colors.deepPurple,
                             decoration: InputDecoration(
-                                focusedBorder: OutlineInputBorder(
-                                    borderSide: const BorderSide(
-                                        color: Colors.deepPurple),
-                                    borderRadius: BorderRadius.circular(12)),
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(12))),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: const BorderSide(
+                                  color: Colors.deepPurple,
+                                ),
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                            ),
                           ),
                           const SizedBox(height: 20),
                           SizedBox(
                             height: 48,
                             width: double.maxFinite,
                             child: ElevatedButton.icon(
-                                style: ButtonStyle(
-                                    backgroundColor: WidgetStateProperty.all(
-                                        Colors.deepPurple)),
-                                onPressed: () {
-                                  if (controller.text.isNotEmpty) {
-                                    promptBloc.add(PromptEnteredEvent(
-                                        prompt: controller.text));
-                                  }
-                                },
-                                icon: const Icon(Icons.generating_tokens),
-                                label: const Text("Generate")),
+                              style: ButtonStyle(
+                                backgroundColor:
+                                    WidgetStateProperty.all(Colors.deepPurple),
+                              ),
+                              onPressed: () {
+                                if (controller.text.isNotEmpty) {
+                                  promptBloc.add(
+                                    PromptEnteredEvent(
+                                      prompt: controller.text,
+                                    ),
+                                  );
+                                }
+                              },
+                              icon: const Icon(Icons.generating_tokens),
+                              label: const Text("Generate"),
+                            ),
                           )
                         ],
                       ),
