@@ -8,3 +8,6 @@ Flutter + Midjourney🚀, AI Image Generator App in Flutter using bloc
 
 
 Leave a star ⭐ on repository.
+.
+.
+.
