@@ -1,6 +1,6 @@
 # flutter_midjourney_app
 
-Flutter + Midjourney🚀, AI Image Generator App in Flutter using bloc
+Flutter + Midjourney🚀, AI Image Generator App in Flutter using bloc.
 New version compatibility done ✅ 
 
 
